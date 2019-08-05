@@ -37,7 +37,12 @@ public class JobMain extends Configured implements Tool {
         //shuffle阶段
         //分区,排序,归约,分组 3,4,5,6步皆可省略
 
+        //3.设置分区类(需要根据分区的个数调整reducer的个数)
+        job.setPartitionerClass(WCPartitioner.class);
+
+
         //7.设置reducer(k3,v3)
+        job.setNumReduceTasks(2);
         job.setReducerClass(WCReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(LongWritable.class);
